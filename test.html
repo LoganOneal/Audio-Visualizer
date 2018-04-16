@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - geometry - cube</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				margin: 0px;
+				background-color: #000000;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+
+
+		<script>
+
+
+//audio stuff
+					var context = new (window.AudioContext || window.webkitAudioContext)();
+			    var audio = new Audio(); //creates a HTML5 Audio Element
+
+			    url = 'http://api.soundcloud.com/tracks/33925813/stream' + '?client_id=c625af85886c1a833e8fe3d740af753c';
+
+					//url = 'media/sonreal.mp3';
+
+			    //wraps the soundcloud stream to an audio element.
+			    audio.src = url;
+
+			    var source = context.createMediaElementSource(audio);
+			    var input = context.createGain();
+			    var output = context.createGain();
+			    var fb = context.createGain();
+			    fb.gain.value = 0.4;
+
+			    var delay = context.createDelay();
+			    delay.delayTime.value = 0.5;
+
+
+			    //dry
+			    source.connect(input);
+			    input.connect(output);
+
+			    //wet
+			    input.connect(delay);
+			    delay.connect(fb);
+			    fb.connect(delay);
+			    delay.connect(output);
+
+			   source.mediaElement.play();
+
+
+		</script>
+
+	</body>
+</html>
